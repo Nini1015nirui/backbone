@@ -17,10 +17,11 @@ class SoftGate(nn.Module):
 
 def sobel_edges(x: torch.Tensor) -> torch.Tensor:
     """Compute simple Sobel edges for each channel."""
-    sobel_x = torch.tensor([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], device=x.device, dtype=x.dtype).view(1, 1, 3, 3)
-    sobel_y = torch.tensor([[-1, -2, -1], [0, 0, 0], [1, 2, 1]], device=x.device, dtype=x.dtype).view(1, 1, 3, 3)
-    gx = F.conv2d(x, sobel_x, padding=1, groups=x.shape[1])
-    gy = F.conv2d(x, sobel_y, padding=1, groups=x.shape[1])
+    C = x.shape[1]
+    sobel_x = torch.tensor([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], device=x.device, dtype=x.dtype).view(1, 1, 3, 3).repeat(C, 1, 1, 1)
+    sobel_y = torch.tensor([[-1, -2, -1], [0, 0, 0], [1, 2, 1]], device=x.device, dtype=x.dtype).view(1, 1, 3, 3).repeat(C, 1, 1, 1)
+    gx = F.conv2d(x, sobel_x, padding=1, groups=C)
+    gy = F.conv2d(x, sobel_y, padding=1, groups=C)
     return torch.sqrt(gx ** 2 + gy ** 2)
 
 
