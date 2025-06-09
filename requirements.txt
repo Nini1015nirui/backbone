@@ -1,0 +1,79 @@
+torch==2.7.1+cu126
+torchvision==0.22.1+cu126
+# torchaudio not required for medical image segmentation
+
+# ===== NVIDIA CUDA SUPPORT (AUTO-INSTALLED WITH PYTORCH) =====
+nvidia-cublas-cu12==12.6.4.1
+nvidia-cuda-cupti-cu12==12.6.80
+nvidia-cuda-nvrtc-cu12==12.6.77
+nvidia-cuda-runtime-cu12==12.6.77
+nvidia-cudnn-cu12==9.5.1.17
+nvidia-cufft-cu12==11.3.0.4
+nvidia-curand-cu12==10.3.7.77
+nvidia-cusolver-cu12==11.7.1.2
+nvidia-cusparse-cu12==12.5.4.2
+nvidia-nccl-cu12==2.26.2
+nvidia-nvjitlink-cu12==12.6.85
+nvidia-nvtx-cu12==12.6.77
+triton==3.3.0
+
+# ===== SCIENTIFIC COMPUTING CORE =====
+numpy==2.2.6
+scipy==1.15.3
+scikit-learn==1.7.0
+
+# ===== IMAGE PROCESSING & COMPUTER VISION =====
+Pillow==11.2.1
+opencv-python==4.11.0.86
+scikit-image==0.25.2            # Image processing algorithms for validation tests
+
+# ===== NEURAL NETWORK COMPONENTS =====
+timm==0.4.12                    # Vision transformers (compatible with H-vmunet)
+einops==0.8.1                   # Tensor operations for transformers
+
+# ===== VMAMBA (VISION MAMBA) SUPPORT - CRITICAL =====
+# Note: mamba_ssm requires manual installation and CUDA compilation
+# Install via: pip install mamba-ssm transformers huggingface-hub
+transformers==4.52.4            # Required for mamba_ssm compatibility
+huggingface-hub==0.32.4         # Required for mamba_ssm models
+safetensors==0.5.3              # Safe tensor serialization
+
+# ===== DATA PROCESSING & UTILITIES =====
+tqdm==4.67.1                    # Progress bars
+PyYAML==6.0.2                   # YAML configuration files
+
+# ===== VISUALIZATION =====
+matplotlib==3.10.3              # Plotting and visualization
+seaborn==0.13.2                 # Statistical data visualization for test reports
+pandas==2.3.0                   # Data analysis and manipulation for validation results
+
+# ===== MACHINE LEARNING & EXPERIMENT TRACKING =====
+scikit-learn==1.7.0             # Machine learning utilities
+wandb==0.20.1                   # Weights & Biases for experiment tracking
+
+# ===== NETWORKING & HTTP =====
+requests==2.32.3                # HTTP library
+urllib3==2.4.0                  # HTTP client
+certifi==2025.4.26              # SSL certificates
+
+# ===== SYSTEM & UTILITIES =====
+psutil==7.0.0                   # System and process utilities
+packaging==25.0                 # Package version utilities
+filelock==3.18.0                # File locking utilities
+
+# ===== DEVELOPMENT & VALIDATION =====
+pydantic==2.11.5                # Data validation
+typing-extensions==4.14.0       # Extended typing support
+
+# ===== ADVANCED VALIDATION & TESTING =====
+# New packages for comprehensive validation test suite:
+# Note: pathlib is part of Python standard library (Python 3.4+)
+# scipy.ndimage, skimage.measure, skimage.morphology already covered by scipy and scikit-image
+
+# ===== MULTITHREADING & PARALLEL PROCESSING =====
+joblib==1.5.1                   # Efficient parallel computing
+threadpoolctl==3.6.0            # Thread pool control
+
+# ===== ADDITIONAL UTILITIES =====
+six==1.17.0                     # Python 2/3 compatibility
+python-dateutil==2.9.0.post0    # Date utilities
