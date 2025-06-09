@@ -81,7 +81,11 @@ def main(config):
                     bridge=model_cfg['bridge'],
                     drop_path_rate=model_cfg['drop_path_rate'])
     
-    model = torch.nn.DataParallel(model.cuda(), device_ids=gpu_ids, output_device=gpu_ids[0])
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if torch.cuda.is_available():
+        model = torch.nn.DataParallel(model.to(device), device_ids=gpu_ids, output_device=gpu_ids[0])
+    else:
+        model = model.to(device)
 
 
 

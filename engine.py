@@ -8,12 +8,12 @@ from utils import save_imgs
 
 def train_one_epoch(train_loader,
                     model,
-                    criterion, 
-                    optimizer, 
+                    criterion,
+                    optimizer,
                     scheduler,
-                    epoch, 
-                    logger, 
-                    config, 
+                    epoch,
+                    logger,
+                    config,
                     scaler=None):
     '''
     train model for one epoch
@@ -23,10 +23,12 @@ def train_one_epoch(train_loader,
  
     loss_list = []
 
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     for iter, data in enumerate(train_loader):
         optimizer.zero_grad()
         images, targets = data
-        images, targets = images.cuda(non_blocking=True).float(), targets.cuda(non_blocking=True).float()
+        images = images.to(device, non_blocking=True).float()
+        targets = targets.to(device, non_blocking=True).float()
         if config.amp:
             with autocast():
                 out = model(images)
@@ -52,8 +54,8 @@ def train_one_epoch(train_loader,
 
 def val_one_epoch(test_loader,
                     model,
-                    criterion, 
-                    epoch, 
+                    criterion,
+                    epoch,
                     logger,
                     config):
     # switch to evaluate mode
@@ -61,10 +63,12 @@ def val_one_epoch(test_loader,
     preds = []
     gts = []
     loss_list = []
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     with torch.no_grad():
         for data in tqdm(test_loader):
             img, msk = data
-            img, msk = img.cuda(non_blocking=True).float(), msk.cuda(non_blocking=True).float()
+            img = img.to(device, non_blocking=True).float()
+            msk = msk.to(device, non_blocking=True).float()
             out = model(img)
             loss = criterion(out, msk)
             loss_list.append(loss.item())
@@ -114,10 +118,12 @@ def test_one_epoch(test_loader,
     preds = []
     gts = []
     loss_list = []
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     with torch.no_grad():
         for i, data in enumerate(tqdm(test_loader)):
             img, msk = data
-            img, msk = img.cuda(non_blocking=True).float(), msk.cuda(non_blocking=True).float()
+            img = img.to(device, non_blocking=True).float()
+            msk = msk.to(device, non_blocking=True).float()
             out = model(img)
             loss = criterion(out, msk)
             loss_list.append(loss.item())
